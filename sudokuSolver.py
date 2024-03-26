@@ -28,33 +28,18 @@ def possible(x, y, n):
                 return False
     return True
 
-# def automate():
-#     global sudoku
-#     for i in range(0,9):
-#         for j in range(0,9):
-#             if sudoku[i][j] == 0:
-#                 for n in range(0, 10):
-#                     if possible(i, j, n):
-#                         sudoku[i][j] = n
-#                         automate()
-#                         sudoku[i][j] = 0
-#                 return 
-#     new = np.matrix(sudoku)
-#     print(new)
-#     input("More?")
 def automate():
     global sudoku
-    for i in range(0, 9):
-        for j in range(0, 9):
-            if i == 8 and j == 8:
-                break
-            elif sudoku[i][j] == 0:
+    for i in range(0,9):
+        for j in range(0,9):
+            if sudoku[i][j] == 0:
                 for n in range(0, 10):
                     if possible(i, j, n):
-                        sudoku[i][j] == n
+                        sudoku[i][j] = n
                         automate()
-                    sudoku[i][j] = 0
-                return
-    print(np.matrix(sudoku))
+                        sudoku[i][j] = 0
+                return 
+    new = np.matrix(sudoku)
+    print(new)
 
 print(automate())
