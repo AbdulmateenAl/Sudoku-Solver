@@ -1,4 +1,4 @@
-import numpy as np
+import pyautogui as pg
 
 sudoku = [[0,8,9,0,6,0,0,0,0],
           [0,0,0,5,0,0,0,0,8],
@@ -11,6 +11,7 @@ sudoku = [[0,8,9,0,6,0,0,0,0],
           [5,4,1,0,2,8,0,9,6]]
 
 def print_board(board):
+    str_board = [] #Created str_board for the pyautogui library as it uses strings and not integers
     for i in range(len(board)):
         if i%3 == 0 and i != 0:
             print("- - - - - - - - - - - -")
@@ -23,6 +24,27 @@ def print_board(board):
                 print(board[i][j])
             else:
                 print(str(board[i][j]) + " ", end="")
+
+    for lists in board:
+        for num in lists:
+            str_board.append(str(num)) #A list with strings inside for pyautogui
+
+    counter = [] #Keeps record of all strings and uses it to move around the table
+
+    for num in str_board:
+        pg.press(num)
+        pg.hotkey('right')
+        counter.append(num)
+        if len(counter) % 9 == 0: #If at the end of a row move down the left 7times and continues again
+            pg.hotkey('down')
+            pg.hotkey('left')
+            pg.hotkey('left')
+            pg.hotkey('left')
+            pg.hotkey('left')
+            pg.hotkey('left')
+            pg.hotkey('left')
+            pg.hotkey('left')
+            pg.hotkey('left')
 
 def find_empty(board):
     for i in range(len(board)):
@@ -62,7 +84,7 @@ def solve(board):
             board[row][col] = 0
     return False
 
-print(print_board(sudoku))
-solve(sudoku)
-print("\t")
-print(print_board(sudoku))
+# print(print_board(sudoku))
+# solve(sudoku)
+# print("\t")
+# print(print_board(sudoku))
